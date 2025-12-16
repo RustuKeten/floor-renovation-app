@@ -1,8 +1,7 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
-import { useDropzone } from "react-dropzone";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Camera,
@@ -32,32 +31,51 @@ export default function Home() {
   const { aiStep, isAIFlow, setIsAIFlow, setAIStep, setUploadedPhoto } =
     useFloorStore();
   const [isCameraActive, setIsCameraActive] = useState(false);
+  const [isDragActive, setIsDragActive] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      const file = acceptedFiles[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          setUploadedPhoto(e.target?.result as string);
-          setIsAIFlow(true);
-          setAIStep("ai-material");
-        };
-        reader.readAsDataURL(file);
-      }
-    },
-    [setUploadedPhoto, setIsAIFlow, setAIStep]
-  );
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setUploadedPhoto(event.target?.result as string);
+        setIsAIFlow(true);
+        setAIStep("ai-material");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      "image/*": [".jpeg", ".jpg", ".png", ".webp"],
-    },
-    maxFiles: 1,
-  });
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragActive(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setUploadedPhoto(event.target?.result as string);
+        setIsAIFlow(true);
+        setAIStep("ai-material");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragActive(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragActive(false);
+  };
+
+  const handleClick = () => {
+    fileInputRef.current?.click();
+  };
 
   const startCamera = async () => {
     try {
@@ -197,7 +215,10 @@ export default function Home() {
                 >
                   {/* Dropzone */}
                   <div
-                    {...getRootProps()}
+                    onClick={handleClick}
+                    onDrop={handleDrop}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
                     className={`
                       relative overflow-hidden rounded-2xl border-2 border-dashed transition-all cursor-pointer z-20
                       ${
@@ -207,17 +228,17 @@ export default function Home() {
                       }
                     `}
                   >
-                    <input {...getInputProps()} style={{ display: 'none' }} />
-                    <div className="p-10 md:p-14 text-center pointer-events-none">
-                      <motion.div
-                        className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500/20 to-blue-500/20 flex items-center justify-center"
-                        animate={{
-                          scale: isDragActive ? 1.1 : 1,
-                          rotate: isDragActive ? 5 : 0,
-                        }}
-                      >
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="hidden"
+                    />
+                    <div className="p-10 md:p-14 text-center">
+                      <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500/20 to-blue-500/20 flex items-center justify-center">
                         <Upload className="w-10 h-10 text-orange-400" />
-                      </motion.div>
+                      </div>
                       <h3 className="text-xl md:text-2xl font-semibold text-white mb-2">
                         {isDragActive
                           ? "Drop your photo here"
@@ -315,7 +336,7 @@ export default function Home() {
                   photo that shows the entire floor area for best results
                 </span>
               </div>
-            </div>
+        </div>
           </motion.div>
 
           {/* Mobile Showroom Van Banner */}
@@ -329,7 +350,7 @@ export default function Home() {
               <div className="md:flex items-center">
                 {/* Van Image */}
                 <div className="md:w-2/5 relative h-52 md:min-h-[220px]">
-                  <Image
+          <Image
                     src="/logo/mobil_showroom_van.png"
                     alt="Floor Vision Mobile Showroom Van"
                     fill
@@ -438,7 +459,7 @@ export default function Home() {
               )}
             </div>
           </motion.div>
-        </div>
+    </div>
       </section>
     </main>
   );
