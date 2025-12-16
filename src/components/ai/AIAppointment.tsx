@@ -87,7 +87,8 @@ export function AIAppointment() {
             You&apos;re All Set!
           </h1>
           <p className="text-zinc-400 mb-8">
-            We&apos;ll contact you within 24 hours to confirm your mobile showroom visit.
+            We&apos;ll contact you within 24 hours to confirm your mobile
+            showroom visit.
           </p>
 
           {/* Mobile Showroom Banner */}
@@ -101,8 +102,12 @@ export function AIAppointment() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 text-left">
-                <p className="text-white font-semibold">Mobile Showroom Coming to You</p>
-                <p className="text-zinc-300 text-sm">100+ samples, expert advice, exact measurements</p>
+                <p className="text-white font-semibold">
+                  Mobile Showroom Coming to You
+                </p>
+                <p className="text-zinc-300 text-sm">
+                  100+ samples, expert advice, exact measurements
+                </p>
               </div>
             </div>
           </div>
@@ -121,12 +126,18 @@ export function AIAppointment() {
               </div>
               <div className="flex justify-between">
                 <span className="text-zinc-400">Room Size</span>
-                <span className="text-white">{aiRoomDetails?.estimatedSqFt} sq ft</span>
+                <span className="text-white">
+                  {aiRoomDetails?.estimatedSqFt} sq ft
+                </span>
               </div>
               <div className="flex justify-between pt-3 border-t border-zinc-800">
                 <span className="text-zinc-400">Estimated Cost</span>
                 <span className="text-orange-400 font-semibold">
-                  ${total.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                  $
+                  {total.toLocaleString(undefined, {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  })}
                 </span>
               </div>
             </div>
@@ -134,7 +145,9 @@ export function AIAppointment() {
 
           {/* What's Next */}
           <div className="p-4 rounded-xl bg-orange-500/10 border border-orange-500/20 text-left mb-8">
-            <h4 className="font-medium text-orange-300 mb-2">What happens next?</h4>
+            <h4 className="font-medium text-orange-300 mb-2">
+              What happens next?
+            </h4>
             <ul className="space-y-2 text-sm text-zinc-400">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" />
@@ -187,11 +200,14 @@ export function AIAppointment() {
               <Truck className="w-5 h-5 text-orange-400" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Schedule Your Free Visit</h1>
+              <h1 className="text-2xl font-bold text-white">
+                Schedule Your Free Visit
+              </h1>
             </div>
           </div>
           <p className="text-zinc-400">
-            We bring flooring samples, expert advice, and exact measurements — free of charge.
+            We bring flooring samples, expert advice, and exact measurements —
+            free of charge.
           </p>
         </motion.div>
 
@@ -218,7 +234,9 @@ export function AIAppointment() {
 
               {/* Benefits */}
               <div className="md:w-3/5 p-6">
-                <h3 className="font-semibold text-white mb-4">What&apos;s Included</h3>
+                <h3 className="font-semibold text-white mb-4">
+                  What&apos;s Included
+                </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {[
                     { icon: Star, text: "100+ Samples" },
@@ -226,7 +244,10 @@ export function AIAppointment() {
                     { icon: User, text: "Expert Advice" },
                     { icon: Shield, text: "No Obligation" },
                   ].map((item) => (
-                    <div key={item.text} className="flex items-center gap-2 text-sm">
+                    <div
+                      key={item.text}
+                      className="flex items-center gap-2 text-sm"
+                    >
                       <item.icon className="w-4 h-4 text-orange-400" />
                       <span className="text-zinc-300">{item.text}</span>
                     </div>
@@ -261,7 +282,9 @@ export function AIAppointment() {
                     type="text"
                     required
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     placeholder="John Smith"
                     className="pl-10 bg-zinc-800 border-zinc-700 text-white h-12"
                   />
@@ -280,7 +303,9 @@ export function AIAppointment() {
                     type="tel"
                     required
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
                     placeholder="(555) 123-4567"
                     className="pl-10 bg-zinc-800 border-zinc-700 text-white h-12"
                   />
@@ -299,7 +324,9 @@ export function AIAppointment() {
                     type="text"
                     required
                     value={formData.zipCode}
-                    onChange={(e) => setFormData({ ...formData, zipCode: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, zipCode: e.target.value })
+                    }
                     placeholder="12345"
                     className="pl-10 bg-zinc-800 border-zinc-700 text-white h-12"
                   />
@@ -317,7 +344,9 @@ export function AIAppointment() {
                     id="email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     placeholder="john@example.com"
                     className="pl-10 bg-zinc-800 border-zinc-700 text-white h-12"
                   />
@@ -334,7 +363,12 @@ export function AIAppointment() {
                   <select
                     id="time"
                     value={formData.preferredTime}
-                    onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        preferredTime: e.target.value,
+                      })
+                    }
                     className="w-full pl-10 pr-4 h-12 rounded-md bg-zinc-800 border border-zinc-700 text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   >
                     <option value="">Select a time...</option>
@@ -361,8 +395,8 @@ export function AIAppointment() {
 
           {/* Trust Text */}
           <p className="text-xs text-zinc-500 text-center">
-            By submitting, you agree to be contacted about your flooring project.
-            No obligation. We respect your privacy.
+            By submitting, you agree to be contacted about your flooring
+            project. No obligation. We respect your privacy.
           </p>
         </motion.form>
       </div>

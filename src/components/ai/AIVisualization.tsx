@@ -24,87 +24,107 @@ import { cn } from "@/lib/utils";
 const MATERIAL_OVERLAYS: Record<string, { gradient: string; blend: string }> = {
   // Vinyl
   "luxury-vinyl-oak": {
-    gradient: "linear-gradient(135deg, rgba(212,165,116,0.5) 0%, rgba(196,154,108,0.4) 50%, rgba(166,124,82,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(212,165,116,0.5) 0%, rgba(196,154,108,0.4) 50%, rgba(166,124,82,0.5) 100%)",
     blend: "multiply",
   },
   "luxury-vinyl-grey": {
-    gradient: "linear-gradient(135deg, rgba(128,128,128,0.5) 0%, rgba(96,96,96,0.4) 50%, rgba(128,128,128,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(128,128,128,0.5) 0%, rgba(96,96,96,0.4) 50%, rgba(128,128,128,0.5) 100%)",
     blend: "multiply",
   },
   "luxury-vinyl-walnut": {
-    gradient: "linear-gradient(135deg, rgba(93,64,55,0.6) 0%, rgba(62,39,35,0.5) 50%, rgba(93,64,55,0.6) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(93,64,55,0.6) 0%, rgba(62,39,35,0.5) 50%, rgba(93,64,55,0.6) 100%)",
     blend: "multiply",
   },
   "vinyl-tile-stone": {
-    gradient: "linear-gradient(135deg, rgba(200,200,200,0.4) 0%, rgba(170,170,170,0.4) 50%, rgba(200,200,200,0.4) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(200,200,200,0.4) 0%, rgba(170,170,170,0.4) 50%, rgba(200,200,200,0.4) 100%)",
     blend: "overlay",
   },
   // Laminate
   "laminate-oak": {
-    gradient: "linear-gradient(135deg, rgba(212,165,116,0.5) 0%, rgba(196,154,108,0.4) 50%, rgba(166,124,82,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(212,165,116,0.5) 0%, rgba(196,154,108,0.4) 50%, rgba(166,124,82,0.5) 100%)",
     blend: "multiply",
   },
   "laminate-hickory": {
-    gradient: "linear-gradient(135deg, rgba(161,136,127,0.5) 0%, rgba(121,85,72,0.5) 50%, rgba(161,136,127,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(161,136,127,0.5) 0%, rgba(121,85,72,0.5) 50%, rgba(161,136,127,0.5) 100%)",
     blend: "multiply",
   },
   "laminate-grey-oak": {
-    gradient: "linear-gradient(135deg, rgba(140,140,140,0.5) 0%, rgba(110,110,110,0.4) 50%, rgba(140,140,140,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(140,140,140,0.5) 0%, rgba(110,110,110,0.4) 50%, rgba(140,140,140,0.5) 100%)",
     blend: "multiply",
   },
   "laminate-waterproof": {
-    gradient: "linear-gradient(135deg, rgba(188,170,164,0.5) 0%, rgba(158,140,134,0.4) 50%, rgba(188,170,164,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(188,170,164,0.5) 0%, rgba(158,140,134,0.4) 50%, rgba(188,170,164,0.5) 100%)",
     blend: "multiply",
   },
   // Hardwood
   "hardwood-oak": {
-    gradient: "linear-gradient(135deg, rgba(212,165,116,0.6) 0%, rgba(196,154,108,0.5) 50%, rgba(166,124,82,0.6) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(212,165,116,0.6) 0%, rgba(196,154,108,0.5) 50%, rgba(166,124,82,0.6) 100%)",
     blend: "multiply",
   },
   "hardwood-walnut": {
-    gradient: "linear-gradient(135deg, rgba(93,64,55,0.7) 0%, rgba(62,39,35,0.6) 50%, rgba(93,64,55,0.7) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(93,64,55,0.7) 0%, rgba(62,39,35,0.6) 50%, rgba(93,64,55,0.7) 100%)",
     blend: "multiply",
   },
   "hardwood-maple": {
-    gradient: "linear-gradient(135deg, rgba(245,222,179,0.5) 0%, rgba(210,180,140,0.4) 50%, rgba(245,222,179,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(245,222,179,0.5) 0%, rgba(210,180,140,0.4) 50%, rgba(245,222,179,0.5) 100%)",
     blend: "multiply",
   },
   "engineered-oak": {
-    gradient: "linear-gradient(135deg, rgba(200,170,130,0.5) 0%, rgba(170,140,100,0.4) 50%, rgba(200,170,130,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(200,170,130,0.5) 0%, rgba(170,140,100,0.4) 50%, rgba(200,170,130,0.5) 100%)",
     blend: "multiply",
   },
   // Tile
   "porcelain-marble": {
-    gradient: "linear-gradient(135deg, rgba(245,245,245,0.4) 0%, rgba(220,220,220,0.5) 50%, rgba(245,245,245,0.4) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(245,245,245,0.4) 0%, rgba(220,220,220,0.5) 50%, rgba(245,245,245,0.4) 100%)",
     blend: "overlay",
   },
   "porcelain-wood": {
-    gradient: "linear-gradient(135deg, rgba(200,170,140,0.5) 0%, rgba(170,140,110,0.4) 50%, rgba(200,170,140,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(200,170,140,0.5) 0%, rgba(170,140,110,0.4) 50%, rgba(200,170,140,0.5) 100%)",
     blend: "multiply",
   },
   "ceramic-classic": {
-    gradient: "linear-gradient(135deg, rgba(255,248,225,0.4) 0%, rgba(255,224,130,0.5) 50%, rgba(255,248,225,0.4) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(255,248,225,0.4) 0%, rgba(255,224,130,0.5) 50%, rgba(255,248,225,0.4) 100%)",
     blend: "overlay",
   },
   "slate-look": {
-    gradient: "linear-gradient(135deg, rgba(100,100,100,0.5) 0%, rgba(70,70,70,0.4) 50%, rgba(100,100,100,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(100,100,100,0.5) 0%, rgba(70,70,70,0.4) 50%, rgba(100,100,100,0.5) 100%)",
     blend: "multiply",
   },
   // Carpet
   "carpet-plush": {
-    gradient: "linear-gradient(135deg, rgba(121,134,203,0.5) 0%, rgba(63,81,181,0.5) 50%, rgba(121,134,203,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(121,134,203,0.5) 0%, rgba(63,81,181,0.5) 50%, rgba(121,134,203,0.5) 100%)",
     blend: "multiply",
   },
   "carpet-berber": {
-    gradient: "linear-gradient(135deg, rgba(188,170,164,0.5) 0%, rgba(158,140,134,0.4) 50%, rgba(188,170,164,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(188,170,164,0.5) 0%, rgba(158,140,134,0.4) 50%, rgba(188,170,164,0.5) 100%)",
     blend: "multiply",
   },
   "carpet-frieze": {
-    gradient: "linear-gradient(135deg, rgba(160,150,140,0.5) 0%, rgba(130,120,110,0.4) 50%, rgba(160,150,140,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(160,150,140,0.5) 0%, rgba(130,120,110,0.4) 50%, rgba(160,150,140,0.5) 100%)",
     blend: "multiply",
   },
   "carpet-stainmaster": {
-    gradient: "linear-gradient(135deg, rgba(150,160,170,0.5) 0%, rgba(120,130,140,0.4) 50%, rgba(150,160,170,0.5) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(150,160,170,0.5) 0%, rgba(120,130,140,0.4) 50%, rgba(150,160,170,0.5) 100%)",
     blend: "multiply",
   },
 };
@@ -119,7 +139,8 @@ const MATERIAL_BENEFITS: Record<string, string[]> = {
 };
 
 export function AIVisualization() {
-  const { uploadedPhoto, selectedMaterial, aiRoomDetails, setAIStep } = useFloorStore();
+  const { uploadedPhoto, selectedMaterial, aiRoomDetails, setAIStep } =
+    useFloorStore();
 
   const [showAfter, setShowAfter] = useState(true);
   const [zoom, setZoom] = useState(1);
@@ -137,8 +158,12 @@ export function AIVisualization() {
     }
   }, []);
 
-  const overlay = selectedMaterial ? MATERIAL_OVERLAYS[selectedMaterial.id] : null;
-  const benefits = selectedMaterial ? MATERIAL_BENEFITS[selectedMaterial.category] : [];
+  const overlay = selectedMaterial
+    ? MATERIAL_OVERLAYS[selectedMaterial.id]
+    : null;
+  const benefits = selectedMaterial
+    ? MATERIAL_BENEFITS[selectedMaterial.category]
+    : [];
   const pricePerSqFt = selectedMaterial
     ? selectedMaterial.pricePerSqFt + selectedMaterial.laborPerSqFt
     : 0;
@@ -233,10 +258,7 @@ export function AIVisualization() {
 
             {/* Image Container */}
             <div className="relative rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800">
-              <div
-                className="overflow-auto"
-                style={{ maxHeight: "500px" }}
-              >
+              <div className="overflow-auto" style={{ maxHeight: "500px" }}>
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={showAfter ? "after" : "before"}
@@ -257,7 +279,7 @@ export function AIVisualization() {
                         className="w-full aspect-[4/3] object-cover"
                       />
                     )}
-                    
+
                     {/* Floor overlay effect - only on After */}
                     {showAfter && overlay && (
                       <>
@@ -265,7 +287,9 @@ export function AIVisualization() {
                           className="absolute inset-0 pointer-events-none"
                           style={{
                             background: overlay.gradient,
-                            mixBlendMode: overlay.blend as "multiply" | "overlay",
+                            mixBlendMode: overlay.blend as
+                              | "multiply"
+                              | "overlay",
                           }}
                         />
                         <div
@@ -342,36 +366,50 @@ export function AIVisualization() {
                 <div className="flex items-baseline justify-between mb-1">
                   <span className="text-sm text-zinc-400">Estimated Total</span>
                   <span className="text-2xl font-bold text-white">
-                    ${estimatedTotal.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                    $
+                    {estimatedTotal.toLocaleString(undefined, {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0,
+                    })}
                   </span>
                 </div>
                 <p className="text-xs text-zinc-500">
-                  Based on {aiRoomDetails?.estimatedSqFt} sq ft @ ${pricePerSqFt.toFixed(2)}/sq ft
+                  Based on {aiRoomDetails?.estimatedSqFt} sq ft @ $
+                  {pricePerSqFt.toFixed(2)}/sq ft
                 </p>
               </div>
             </div>
 
             {/* Room Details Card */}
             <div className="p-5 rounded-2xl bg-zinc-900/50 border border-zinc-800">
-              <h3 className="text-sm font-medium text-zinc-400 mb-3">Room Details</h3>
+              <h3 className="text-sm font-medium text-zinc-400 mb-3">
+                Room Details
+              </h3>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <p className="text-xs text-zinc-500">Room Type</p>
-                  <p className="text-white font-medium">{aiRoomDetails?.roomType}</p>
+                  <p className="text-white font-medium">
+                    {aiRoomDetails?.roomType}
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs text-zinc-500">Size</p>
-                  <p className="text-white font-medium">{aiRoomDetails?.estimatedSqFt} sq ft</p>
+                  <p className="text-white font-medium">
+                    {aiRoomDetails?.estimatedSqFt} sq ft
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs text-zinc-500">Dimensions</p>
                   <p className="text-white font-medium">
-                    {aiRoomDetails?.estimatedLength}&apos; × {aiRoomDetails?.estimatedWidth}&apos;
+                    {aiRoomDetails?.estimatedLength}&apos; ×{" "}
+                    {aiRoomDetails?.estimatedWidth}&apos;
                   </p>
                 </div>
                 <div>
                   <p className="text-xs text-zinc-500">Current Floor</p>
-                  <p className="text-white font-medium">{aiRoomDetails?.currentFloorType}</p>
+                  <p className="text-white font-medium">
+                    {aiRoomDetails?.currentFloorType}
+                  </p>
                 </div>
               </div>
             </div>
@@ -409,8 +447,9 @@ export function AIVisualization() {
             <Info className="w-5 h-5 text-orange-400 flex-shrink-0 mt-0.5" />
             <div>
               <p className="text-sm text-orange-200">
-                <strong>AI-Generated Preview:</strong> This visualization is an estimate.
-                For accurate pricing and to see real samples, schedule a free mobile showroom visit.
+                <strong>AI-Generated Preview:</strong> This visualization is an
+                estimate. For accurate pricing and to see real samples, schedule
+                a free mobile showroom visit.
               </p>
             </div>
           </div>

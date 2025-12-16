@@ -280,7 +280,9 @@ export default function Home() {
                   {/* Privacy Reassurance */}
                   <div className="flex items-center justify-center gap-2 text-sm text-zinc-500">
                     <Lock className="w-4 h-4" />
-                    <span>Your photo is private. Used only to generate previews.</span>
+                    <span>
+                      Your photo is private. Used only to generate previews.
+                    </span>
                   </div>
 
                   {/* Secondary CTA */}
@@ -392,15 +394,13 @@ export default function Home() {
                 step: "1",
                 icon: Camera,
                 title: "Upload a Photo",
-                description:
-                  "See how different floors look in your own space.",
+                description: "See how different floors look in your own space.",
               },
               {
                 step: "2",
                 icon: Eye,
                 title: "Visualize With AI",
-                description:
-                  "Compare styles, colors, and materials instantly.",
+                description: "Compare styles, colors, and materials instantly.",
               },
               {
                 step: "3",
@@ -595,7 +595,9 @@ export default function Home() {
                   onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
                   className="w-full flex items-center justify-between p-5 text-left bg-zinc-900/50 hover:bg-zinc-900 transition-colors"
                 >
-                  <span className="font-medium text-white">{item.question}</span>
+                  <span className="font-medium text-white">
+                    {item.question}
+                  </span>
                   <ChevronDown
                     className={`w-5 h-5 text-zinc-400 transition-transform ${
                       openFAQ === index ? "rotate-180" : ""
@@ -611,7 +613,9 @@ export default function Home() {
                       transition={{ duration: 0.2 }}
                       className="overflow-hidden"
                     >
-                      <div className="p-5 pt-0 text-zinc-400">{item.answer}</div>
+                      <div className="p-5 pt-0 text-zinc-400">
+                        {item.answer}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
