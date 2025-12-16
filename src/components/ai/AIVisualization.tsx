@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { useEffect, useRef } from 'react'
@@ -246,4 +247,5 @@ export function AIVisualization() {
     </section>
   )
 }
+
 
