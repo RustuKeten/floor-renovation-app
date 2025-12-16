@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -328,14 +327,22 @@ export default function Home() {
             <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-orange-500/10 to-blue-500/10 border border-orange-500/20">
               <div className="md:flex items-center">
                 {/* Van Image */}
-                <div className="md:w-2/5 relative h-48 md:h-auto">
+                <div className="md:w-2/5 relative h-52 md:min-h-[220px] bg-gradient-to-br from-orange-900/30 to-blue-900/30 flex items-center justify-center">
+                  {/* Placeholder - Replace with actual van image at /public/van.jpg */}
+                  <div className="text-center p-4">
+                    <Truck className="w-16 h-16 text-orange-400 mx-auto mb-2" />
+                    <p className="text-xs text-zinc-500">Mobile Showroom</p>
+                  </div>
+                  {/* Uncomment when you have your van image:
                   <Image
-                    src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=400&h=300&fit=crop"
+                    src="/van.jpg"
                     alt="Floor Vision Mobile Showroom Van"
                     fill
                     className="object-cover"
+                    priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/50 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0a0a0a]/70 via-transparent to-transparent" />
+                  */}
                 </div>
                 
                 {/* Content */}
