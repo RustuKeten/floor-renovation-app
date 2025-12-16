@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -327,36 +328,31 @@ export default function Home() {
             <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-orange-500/10 to-blue-500/10 border border-orange-500/20">
               <div className="md:flex items-center">
                 {/* Van Image */}
-                <div className="md:w-2/5 relative h-52 md:min-h-[220px] bg-gradient-to-br from-orange-900/30 to-blue-900/30 flex items-center justify-center">
-                  {/* Placeholder - Replace with actual van image at /public/van.jpg */}
-                  <div className="text-center p-4">
-                    <Truck className="w-16 h-16 text-orange-400 mx-auto mb-2" />
-                    <p className="text-xs text-zinc-500">Mobile Showroom</p>
-                  </div>
-                  {/* Uncomment when you have your van image:
+                <div className="md:w-2/5 relative h-52 md:min-h-[220px]">
                   <Image
-                    src="/van.jpg"
+                    src="/logo/mobil_showroom_van.png"
                     alt="Floor Vision Mobile Showroom Van"
                     fill
-                    className="object-cover"
+                    className="object-cover object-center"
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0a0a0a]/70 via-transparent to-transparent" />
-                  */}
                 </div>
-                
+
                 {/* Content */}
                 <div className="md:w-3/5 p-6 md:p-8">
                   <div className="flex items-center gap-2 mb-2">
                     <Truck className="w-5 h-5 text-orange-400" />
-                    <span className="text-xs font-medium text-orange-400 uppercase tracking-wider">Free Service</span>
+                    <span className="text-xs font-medium text-orange-400 uppercase tracking-wider">
+                      Free Service
+                    </span>
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
                     Mobile Showroom Comes to You!
                   </h3>
                   <p className="text-zinc-400 text-sm mb-4">
-                    Our fully-equipped van brings 100+ flooring samples to your door. 
-                    Touch, compare, and choose in the comfort of your home.
+                    Our fully-equipped van brings 100+ flooring samples to your
+                    door. Touch, compare, and choose in the comfort of your
+                    home.
                   </p>
                   <div className="flex flex-wrap gap-4 text-sm">
                     <div className="flex items-center gap-1.5 text-zinc-300">

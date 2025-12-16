@@ -127,7 +127,7 @@ export function AIAppointment() {
               className="mb-8 rounded-xl overflow-hidden"
             >
               <Image
-                src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=600&h=300&fit=crop"
+                src="/logo/mobil_showroom_van.png"
                 alt="Floor Vision Mobile Showroom"
                 width={600}
                 height={300}
@@ -294,13 +294,12 @@ export function AIAppointment() {
                   <div className="md:w-2/5 relative min-h-[200px]">
                     <div className="aspect-[4/3] md:aspect-auto md:absolute md:inset-0">
                       <Image
-                        src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=500&h=400&fit=crop"
+                        src="/logo/mobil_showroom_van.png"
                         alt="Floor Vision Mobile Showroom Van"
                         fill
-                        className="object-cover"
+                        className="object-cover object-center"
                         priority
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0a0a0a]/50 md:bg-gradient-to-l md:from-[#0a0a0a]/60 md:to-transparent" />
                     </div>
                   </div>
                   
