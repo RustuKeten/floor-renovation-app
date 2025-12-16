@@ -336,7 +336,7 @@ export default function Home() {
                   photo that shows the entire floor area for best results
                 </span>
               </div>
-        </div>
+            </div>
           </motion.div>
 
           {/* Mobile Showroom Van Banner */}
@@ -350,7 +350,7 @@ export default function Home() {
               <div className="md:flex items-center">
                 {/* Van Image */}
                 <div className="md:w-2/5 relative h-52 md:min-h-[220px]">
-          <Image
+                  <Image
                     src="/logo/mobil_showroom_van.png"
                     alt="Floor Vision Mobile Showroom Van"
                     fill
@@ -459,7 +459,7 @@ export default function Home() {
               )}
             </div>
           </motion.div>
-    </div>
+        </div>
       </section>
     </main>
   );
