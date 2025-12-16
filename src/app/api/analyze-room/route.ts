@@ -36,7 +36,9 @@ Provide:
 - estimatedWidth: Estimated room width in feet (number only)
 - currentFloorType: Current flooring type (Hardwood, Carpet, Tile, Laminate, Concrete, Vinyl, etc.)
 - condition: Floor condition as "good", "fair", or "poor"
-- notes: Brief observations about the room${material ? ` relevant to installing ${material} flooring` : ""}
+- notes: Brief observations about the room${
+                material ? ` relevant to installing ${material} flooring` : ""
+              }
 
 Response format (JSON only, no other text):
 {"roomType":"string","estimatedLength":number,"estimatedWidth":number,"currentFloorType":"string","condition":"good"|"fair"|"poor","notes":"string"}`,
