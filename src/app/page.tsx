@@ -141,7 +141,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-6 pt-8 pb-20">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-8 pb-20">
           {/* Header Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -199,7 +199,7 @@ export default function Home() {
                   <div
                     {...getRootProps()}
                     className={`
-                      relative overflow-hidden rounded-2xl border-2 border-dashed transition-all cursor-pointer
+                      relative overflow-hidden rounded-2xl border-2 border-dashed transition-all cursor-pointer z-20
                       ${
                         isDragActive
                           ? "border-orange-500 bg-orange-500/10"
@@ -207,8 +207,8 @@ export default function Home() {
                       }
                     `}
                   >
-                    <input {...getInputProps()} />
-                    <div className="p-10 md:p-14 text-center">
+                    <input {...getInputProps()} style={{ display: 'none' }} />
+                    <div className="p-10 md:p-14 text-center pointer-events-none">
                       <motion.div
                         className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500/20 to-blue-500/20 flex items-center justify-center"
                         animate={{
