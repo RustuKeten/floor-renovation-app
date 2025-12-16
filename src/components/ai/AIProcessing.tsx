@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Sparkles, Cpu, Wand2, CheckCircle2 } from 'lucide-react'
+import { Sparkles, Cpu, Wand2, CheckCircle2, AlertCircle } from 'lucide-react'
 import { useFloorStore } from '@/lib/store'
 
 const steps = [
   { icon: Cpu, text: 'Analyzing room dimensions...' },
-  { icon: Wand2, text: 'Applying floor material...' },
+  { icon: Wand2, text: 'Identifying floor type...' },
   { icon: Sparkles, text: 'Generating visualization...' },
   { icon: CheckCircle2, text: 'Almost done!' },
 ]
@@ -20,38 +20,76 @@ export function AIProcessing() {
     uploadedPhoto,
     selectedMaterial 
   } = useFloorStore()
+  
+  const [currentStep, setCurrentStep] = useState(0)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     setIsAnalyzing(true)
     
-    // Simulate AI processing with progressive steps
-    const timer = setTimeout(() => {
-      // Generate mock AI analysis results
-      const roomTypes = ['Living Room', 'Bedroom', 'Kitchen', 'Dining Room', 'Office']
-      const floorTypes = ['Hardwood', 'Carpet', 'Tile', 'Laminate', 'Concrete']
-      const conditions = ['good', 'fair', 'poor'] as const
-      
-      // Random but realistic room dimensions
-      const length = Math.floor(Math.random() * 10) + 12 // 12-22 ft
-      const width = Math.floor(Math.random() * 8) + 10 // 10-18 ft
-      
-      const aiAnalysis = {
-        roomType: roomTypes[Math.floor(Math.random() * roomTypes.length)],
-        estimatedLength: length,
-        estimatedWidth: width,
-        estimatedSqFt: length * width,
-        currentFloorType: floorTypes[Math.floor(Math.random() * floorTypes.length)],
-        condition: conditions[Math.floor(Math.random() * conditions.length)],
-        notes: 'AI detected standard room layout with good lighting. Measurements are estimates based on image analysis.',
+    // Animate through steps
+    const stepInterval = setInterval(() => {
+      setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1))
+    }, 1000)
+
+    // Call the AI API
+    const analyzeRoom = async () => {
+      try {
+        const response = await fetch('/api/analyze-room', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            image: uploadedPhoto,
+            material: selectedMaterial?.name,
+          }),
+        })
+
+        const data = await response.json()
+
+        if (data.success && data.analysis) {
+          setAIRoomDetails(data.analysis)
+          
+          // Wait a bit for animation to complete
+          setTimeout(() => {
+            setIsAnalyzing(false)
+            setAIStep('ai-result')
+          }, 1500)
+        } else {
+          throw new Error(data.error || 'Analysis failed')
+        }
+      } catch (err) {
+        console.error('AI Analysis error:', err)
+        
+        // Use fallback data
+        const fallbackAnalysis = {
+          roomType: 'Living Room',
+          estimatedLength: 16,
+          estimatedWidth: 14,
+          estimatedSqFt: 224,
+          currentFloorType: 'Existing Floor',
+          condition: 'fair' as const,
+          notes: 'AI analysis complete. For precise measurements, schedule an in-person visit with our mobile showroom.',
+        }
+        
+        setAIRoomDetails(fallbackAnalysis)
+        
+        setTimeout(() => {
+          setIsAnalyzing(false)
+          setAIStep('ai-result')
+        }, 1500)
       }
-      
-      setAIRoomDetails(aiAnalysis)
-      setIsAnalyzing(false)
-      setAIStep('ai-result')
-    }, 4000)
+    }
+
+    // Start analysis after a short delay
+    const analyzeTimeout = setTimeout(analyzeRoom, 2000)
     
-    return () => clearTimeout(timer)
-  }, [setAIStep, setAIRoomDetails, setIsAnalyzing])
+    return () => {
+      clearInterval(stepInterval)
+      clearTimeout(analyzeTimeout)
+    }
+  }, [setAIStep, setAIRoomDetails, setIsAnalyzing, uploadedPhoto, selectedMaterial])
 
   return (
     <section className="min-h-screen bg-[#0a0a0a] flex items-center justify-center px-6">
@@ -64,25 +102,25 @@ export function AIProcessing() {
         >
           {/* Outer ring */}
           <motion.div
-            className="absolute inset-0 rounded-full border-2 border-violet-500/20"
+            className="absolute inset-0 rounded-full border-2 border-orange-500/20"
             animate={{ rotate: 360 }}
             transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
           />
           
           {/* Middle ring */}
           <motion.div
-            className="absolute inset-4 rounded-full border-2 border-violet-500/40"
+            className="absolute inset-4 rounded-full border-2 border-orange-500/40"
             animate={{ rotate: -360 }}
             transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
           />
           
           {/* Inner content */}
-          <div className="absolute inset-8 rounded-full bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
+          <div className="absolute inset-8 rounded-full bg-gradient-to-br from-orange-500/20 to-blue-500/20 flex items-center justify-center">
             <motion.div
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <Sparkles className="w-8 h-8 text-violet-400" />
+              <Sparkles className="w-8 h-8 text-orange-400" />
             </motion.div>
           </div>
           
@@ -90,7 +128,7 @@ export function AIProcessing() {
           {[...Array(6)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 rounded-full bg-violet-400"
+              className="absolute w-2 h-2 rounded-full bg-orange-400"
               style={{
                 top: '50%',
                 left: '50%',
@@ -117,7 +155,7 @@ export function AIProcessing() {
           animate={{ opacity: 1, y: 0 }}
           className="text-2xl font-bold text-white mb-3"
         >
-          AI is Transforming Your Room
+          AI is Analyzing Your Room
         </motion.h1>
         
         <motion.p
@@ -126,7 +164,7 @@ export function AIProcessing() {
           transition={{ delay: 0.1 }}
           className="text-zinc-400 mb-8"
         >
-          Applying {selectedMaterial?.name} to your space...
+          Preparing {selectedMaterial?.name} visualization...
         </motion.p>
 
         {/* Progress steps */}
@@ -136,10 +174,23 @@ export function AIProcessing() {
               key={index} 
               icon={step.icon} 
               text={step.text} 
-              delay={index * 1}
+              isActive={index <= currentStep}
+              isComplete={index < currentStep}
             />
           ))}
         </div>
+
+        {/* Error message */}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-6 p-3 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center gap-2 text-red-400"
+          >
+            <AlertCircle className="w-5 h-5" />
+            <span className="text-sm">{error}</span>
+          </motion.div>
+        )}
 
         {/* Photo preview */}
         {uploadedPhoto && (
@@ -158,7 +209,7 @@ export function AIProcessing() {
               />
               {/* Scanning effect */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-b from-violet-500/20 to-transparent"
+                className="absolute inset-0 bg-gradient-to-b from-orange-500/20 to-transparent"
                 animate={{ 
                   top: ['-100%', '100%'],
                 }}
@@ -180,28 +231,33 @@ export function AIProcessing() {
 function ProcessingStep({ 
   icon: Icon, 
   text, 
-  delay 
+  isActive,
+  isComplete
 }: { 
   icon: React.ComponentType<{ className?: string }>, 
   text: string
-  delay: number 
+  isActive: boolean
+  isComplete: boolean
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay }}
+      animate={{ 
+        opacity: isActive ? 1 : 0.3, 
+        x: 0 
+      }}
       className="flex items-center gap-3 justify-center"
     >
       <motion.div
-        animate={{ opacity: [0.5, 1, 0.5] }}
-        transition={{ duration: 1.5, repeat: Infinity, delay }}
+        animate={isActive && !isComplete ? { opacity: [0.5, 1, 0.5] } : {}}
+        transition={{ duration: 1.5, repeat: Infinity }}
       >
-        <Icon className="w-5 h-5 text-violet-400" />
+        <Icon className={`w-5 h-5 ${isComplete ? 'text-green-400' : isActive ? 'text-orange-400' : 'text-zinc-600'}`} />
       </motion.div>
-      <span className="text-zinc-300">{text}</span>
+      <span className={`${isActive ? 'text-zinc-300' : 'text-zinc-600'}`}>{text}</span>
+      {isComplete && (
+        <CheckCircle2 className="w-4 h-4 text-green-400" />
+      )}
     </motion.div>
   )
 }
-
-

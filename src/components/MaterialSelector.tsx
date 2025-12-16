@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Check, ArrowRight, ArrowLeft, Layers, Star, Wrench, Droplets, Info } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -16,18 +17,6 @@ const CATEGORIES = [
   { id: 'carpet', name: 'Carpet', icon: Layers },
   { id: 'vinyl', name: 'Vinyl', icon: Droplets },
 ]
-
-// Material pattern backgrounds
-const MATERIAL_PATTERNS: Record<string, string> = {
-  'oak-hardwood': 'linear-gradient(135deg, #D4A574 0%, #C49A6C 25%, #B8956A 50%, #A67C52 75%, #8B6914 100%)',
-  'walnut-hardwood': 'linear-gradient(135deg, #5D4037 0%, #6D4C41 25%, #4E342E 50%, #3E2723 75%, #5D4037 100%)',
-  'maple-hardwood': 'linear-gradient(135deg, #F5DEB3 0%, #DEB887 25%, #D2B48C 50%, #C4A77D 75%, #F5DEB3 100%)',
-  'premium-laminate': 'linear-gradient(135deg, #A1887F 0%, #8D6E63 25%, #795548 50%, #6D4C41 75%, #A1887F 100%)',
-  'porcelain-tile': 'linear-gradient(135deg, #ECEFF1 0%, #CFD8DC 25%, #B0BEC5 50%, #90A4AE 75%, #ECEFF1 100%)',
-  'ceramic-tile': 'linear-gradient(135deg, #FFF8E1 0%, #FFECB3 25%, #FFE082 50%, #FFD54F 75%, #FFF8E1 100%)',
-  'plush-carpet': 'linear-gradient(135deg, #7986CB 0%, #5C6BC0 25%, #3F51B5 50%, #3949AB 75%, #7986CB 100%)',
-  'luxury-vinyl': 'linear-gradient(135deg, #BCAAA4 0%, #A1887F 25%, #8D6E63 50%, #795548 75%, #BCAAA4 100%)',
-}
 
 export function MaterialSelector() {
   const { selectedMaterial, setSelectedMaterial, getTotalSqFt, setStep } = useFloorStore()
@@ -125,10 +114,14 @@ export function MaterialSelector() {
             >
               <div className="max-w-7xl mx-auto flex items-center justify-between">
                 <div className="flex items-center gap-6">
-                  <div
-                    className="w-16 h-16 rounded-xl"
-                    style={{ background: MATERIAL_PATTERNS[selectedMaterial.id] }}
-                  />
+                  <div className="w-16 h-16 rounded-xl overflow-hidden relative">
+                    <Image
+                      src={selectedMaterial.image}
+                      alt={selectedMaterial.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                   <div>
                     <p className="text-sm text-zinc-400">Selected Material</p>
                     <p className="text-xl font-semibold text-white">{selectedMaterial.name}</p>
@@ -203,24 +196,18 @@ function MaterialCard({
           : 'hover:scale-[1.02]'
       )}
     >
-      {/* Material Preview */}
-      <div
-        className="h-40 relative"
-        style={{ background: MATERIAL_PATTERNS[material.id] }}
-      >
-        {/* Wood grain texture overlay */}
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: `repeating-linear-gradient(
-              90deg,
-              transparent,
-              transparent 2px,
-              rgba(0,0,0,0.1) 2px,
-              rgba(0,0,0,0.1) 4px
-            )`,
-          }}
+      {/* Material Preview - Real Image */}
+      <div className="h-40 relative">
+        <Image
+          src={material.image}
+          alt={material.name}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
         />
+        
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         
         {/* Category badge */}
         <Badge className="absolute top-3 left-3 bg-black/50 text-white backdrop-blur-sm border-none capitalize">
@@ -300,5 +287,3 @@ function MaterialCard({
     </motion.div>
   )
 }
-
-
