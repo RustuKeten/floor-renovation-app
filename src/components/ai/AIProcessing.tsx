@@ -150,6 +150,7 @@ export function AIProcessing() {
             className="mt-8"
           >
             <div className="relative rounded-xl overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={uploadedPhoto}
                 alt="Processing"

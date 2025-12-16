@@ -246,6 +246,7 @@ export function AIPhotoUpload() {
               className="space-y-6"
             >
               <div className="relative rounded-2xl overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={uploadedPhoto}
                   alt="Uploaded floor"

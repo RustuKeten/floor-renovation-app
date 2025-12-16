@@ -92,6 +92,7 @@ export function AILeadCapture() {
           <div className="flex items-center gap-4">
             {uploadedPhoto && (
               <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={uploadedPhoto}
                   alt="Your room"

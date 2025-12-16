@@ -72,6 +72,7 @@ export function AIMaterialSelector() {
               <p className="text-sm text-zinc-400 mb-3">Your photo</p>
               <div className="rounded-xl overflow-hidden border border-zinc-800">
                 {uploadedPhoto && (
+                  /* eslint-disable-next-line @next/next/no-img-element */
                   <img
                     src={uploadedPhoto}
                     alt="Your room"

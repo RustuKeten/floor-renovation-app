@@ -3,7 +3,7 @@
 import { useCallback, useRef, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Camera, Upload, X, Sparkles, Shield, Clock, Star, Zap, Image as ImageIcon } from 'lucide-react'
+import { Camera, Upload, X, Sparkles, Shield, Clock, Zap, Image as ImageIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useFloorStore } from '@/lib/store'
 
@@ -17,7 +17,7 @@ import { AIQuote } from '@/components/ai/AIQuote'
 import { AIAppointment } from '@/components/ai/AIAppointment'
 
 export default function Home() {
-  const { aiStep, isAIFlow, setIsAIFlow, setAIStep, uploadedPhoto, setUploadedPhoto } = useFloorStore()
+  const { aiStep, isAIFlow, setIsAIFlow, setAIStep, setUploadedPhoto } = useFloorStore()
   const [isCameraActive, setIsCameraActive] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)

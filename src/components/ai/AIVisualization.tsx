@@ -112,6 +112,7 @@ export function AIVisualization() {
               Before
             </Badge>
             {uploadedPhoto && (
+              /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={uploadedPhoto}
                 alt="Before"
@@ -128,6 +129,7 @@ export function AIVisualization() {
             </Badge>
             {uploadedPhoto && (
               <div className="relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={uploadedPhoto}
                   alt="After"
