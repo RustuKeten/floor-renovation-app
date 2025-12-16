@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 import { 
   ArrowLeft, 
   Calendar, 
@@ -12,7 +13,10 @@ import {
   Clock,
   MapPin,
   Mail,
-  Sparkles
+  Sparkles,
+  Truck,
+  Star,
+  Palette
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -27,9 +31,9 @@ type AppointmentType = 'in-person' | 'call' | 'video'
 const APPOINTMENT_OPTIONS = [
   {
     id: 'in-person' as AppointmentType,
-    icon: Users,
-    title: 'In-Person Visit',
-    description: 'A specialist will visit your home for precise measurements',
+    icon: Truck,
+    title: 'Mobile Showroom Visit',
+    description: 'Our showroom van comes to you with real samples to see & feel',
     duration: '30-45 min',
     recommended: true,
   },
@@ -79,7 +83,7 @@ export function AIAppointment() {
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
-      colors: ['#8b5cf6', '#d946ef', '#a855f7', '#c084fc'],
+      colors: ['#f97316', '#3b82f6', '#f59e0b', '#06b6d4'],
     })
   }
 
@@ -108,8 +112,29 @@ export function AIAppointment() {
             Request Submitted!
           </h1>
           <p className="text-zinc-400 mb-8">
-            We&apos;ll contact you within 24 hours to confirm your {appointmentType === 'in-person' ? 'visit' : 'call'}.
+            {appointmentType === 'in-person' 
+              ? "Our mobile showroom will be on its way! We'll contact you within 24 hours to confirm your visit."
+              : `We'll contact you within 24 hours to confirm your ${appointmentType}.`
+            }
           </p>
+
+          {/* Van Image for in-person */}
+          {appointmentType === 'in-person' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="mb-8 rounded-xl overflow-hidden"
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=300&fit=crop"
+                alt="Floor Vision Mobile Showroom"
+                width={600}
+                height={300}
+                className="w-full object-cover"
+              />
+            </motion.div>
+          )}
 
           {/* Summary Card */}
           <Card className="bg-zinc-900/50 border-zinc-800 p-6 text-left mb-8">
@@ -117,7 +142,7 @@ export function AIAppointment() {
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
                 <span className="text-zinc-400">Type</span>
-                <span className="text-white capitalize">{appointmentType?.replace('-', ' ')}</span>
+                <span className="text-white capitalize">{appointmentType === 'in-person' ? 'Mobile Showroom Visit' : appointmentType?.replace('-', ' ')}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-zinc-400">Material</span>
@@ -129,7 +154,7 @@ export function AIAppointment() {
               </div>
               <div className="flex justify-between">
                 <span className="text-zinc-400">Estimated Cost</span>
-                <span className="text-violet-400 font-semibold">
+                <span className="text-orange-400 font-semibold">
                   ${total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
@@ -155,7 +180,7 @@ export function AIAppointment() {
 
   return (
     <section className="min-h-screen bg-[#0a0a0a] py-12 px-6">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -171,14 +196,14 @@ export function AIAppointment() {
           </button>
           
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
-              <Calendar className="w-6 h-6 text-violet-400" />
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/20 to-blue-500/20 flex items-center justify-center">
+              <Calendar className="w-6 h-6 text-orange-400" />
             </div>
             <div>
-              <span className="px-2 py-0.5 text-xs font-medium bg-violet-500/20 text-violet-300 rounded-full">
+              <span className="px-2 py-0.5 text-xs font-medium bg-orange-500/20 text-orange-300 rounded-full">
                 Final Step
               </span>
-              <h1 className="text-3xl font-bold text-white">Schedule Measurement</h1>
+              <h1 className="text-3xl font-bold text-white">Get Your Free Measurement</h1>
             </div>
           </div>
           <p className="text-zinc-400">
@@ -204,14 +229,14 @@ export function AIAppointment() {
                 onClick={() => setAppointmentType(option.id)}
                 className={cn(
                   'relative p-5 cursor-pointer transition-all duration-300 bg-zinc-900/50 border-zinc-800 hover:border-zinc-700',
-                  appointmentType === option.id && 'border-violet-500 bg-violet-500/5'
+                  appointmentType === option.id && 'border-orange-500 bg-orange-500/5'
                 )}
               >
                 {option.recommended && (
                   <div className="absolute -top-2 right-4">
-                    <span className="px-2 py-0.5 text-xs font-medium bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white rounded-full flex items-center gap-1">
+                    <span className="px-2 py-0.5 text-xs font-medium bg-gradient-to-r from-orange-500 to-blue-500 text-white rounded-full flex items-center gap-1">
                       <Sparkles className="w-3 h-3" />
-                      Recommended
+                      Most Popular
                     </span>
                   </div>
                 )}
@@ -219,11 +244,11 @@ export function AIAppointment() {
                 <div className="flex items-start gap-4">
                   <div className={cn(
                     'w-12 h-12 rounded-xl flex items-center justify-center transition-colors',
-                    appointmentType === option.id ? 'bg-violet-500/20' : 'bg-zinc-800'
+                    appointmentType === option.id ? 'bg-orange-500/20' : 'bg-zinc-800'
                   )}>
                     <option.icon className={cn(
                       'w-6 h-6 transition-colors',
-                      appointmentType === option.id ? 'text-violet-400' : 'text-zinc-500'
+                      appointmentType === option.id ? 'text-orange-400' : 'text-zinc-500'
                     )} />
                   </div>
                   
@@ -241,7 +266,7 @@ export function AIAppointment() {
                   <div className={cn(
                     'w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all',
                     appointmentType === option.id
-                      ? 'bg-violet-500 border-violet-500'
+                      ? 'bg-orange-500 border-orange-500'
                       : 'border-zinc-600 bg-transparent'
                   )}>
                     {appointmentType === option.id && (
@@ -253,6 +278,65 @@ export function AIAppointment() {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Mobile Showroom Feature Showcase */}
+        <AnimatePresence>
+          {appointmentType === 'in-person' && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mb-8 overflow-hidden"
+            >
+              <Card className="bg-gradient-to-br from-orange-500/10 to-blue-500/10 border-orange-500/30 overflow-hidden">
+                <div className="md:flex">
+                  {/* Van Image */}
+                  <div className="md:w-2/5 relative">
+                    <div className="aspect-[4/3] md:aspect-auto md:absolute md:inset-0">
+                      <Image
+                        src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=500&h=400&fit=crop"
+                        alt="Floor Vision Mobile Showroom Van"
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0a0a0a]/80 md:bg-gradient-to-l md:from-[#0a0a0a] md:to-transparent" />
+                    </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="md:w-3/5 p-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Truck className="w-5 h-5 text-orange-400" />
+                      <h3 className="text-lg font-bold text-white">Mobile Showroom Experience</h3>
+                    </div>
+                    <p className="text-zinc-400 text-sm mb-4">
+                      Our fully-equipped showroom van brings the store to your doorstep! Touch and compare hundreds of flooring samples in the comfort of your home.
+                    </p>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="flex items-center gap-2 text-sm">
+                        <Palette className="w-4 h-4 text-orange-400" />
+                        <span className="text-zinc-300">100+ samples</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm">
+                        <Star className="w-4 h-4 text-orange-400" />
+                        <span className="text-zinc-300">Expert advice</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm">
+                        <MapPin className="w-4 h-4 text-orange-400" />
+                        <span className="text-zinc-300">Precise measurements</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm">
+                        <CheckCircle2 className="w-4 h-4 text-orange-400" />
+                        <span className="text-zinc-300">Free service</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Additional Info Form */}
         {appointmentType && (
@@ -317,10 +401,19 @@ export function AIAppointment() {
               onClick={handleSubmit}
               disabled={!name || (appointmentType === 'in-person' && !address)}
               size="lg"
-              className="w-full h-14 bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-400 hover:to-fuchsia-400 text-white font-semibold disabled:opacity-50"
+              className="w-full h-14 bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-400 hover:to-blue-400 text-white font-semibold disabled:opacity-50"
             >
-              <Calendar className="w-5 h-5 mr-2" />
-              Request {appointmentType === 'in-person' ? 'Visit' : appointmentType === 'call' ? 'Call' : 'Video Call'}
+              {appointmentType === 'in-person' ? (
+                <>
+                  <Truck className="w-5 h-5 mr-2" />
+                  Schedule Mobile Showroom Visit
+                </>
+              ) : (
+                <>
+                  <Calendar className="w-5 h-5 mr-2" />
+                  Request {appointmentType === 'call' ? 'Call' : 'Video Call'}
+                </>
+              )}
             </Button>
 
             <p className="text-xs text-zinc-500 text-center">
@@ -333,5 +426,3 @@ export function AIAppointment() {
     </section>
   )
 }
-
-

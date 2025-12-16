@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -12,6 +13,8 @@ import {
   Clock,
   Zap,
   Image as ImageIcon,
+  Truck,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFloorStore } from "@/lib/store";
@@ -123,9 +126,9 @@ export default function Home() {
       <section className="relative min-h-screen overflow-hidden">
         {/* Animated background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-900/20 via-transparent to-fuchsia-900/20" />
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-fuchsia-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-900/20 via-transparent to-blue-900/20" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
 
           {/* Grid pattern */}
           <div
@@ -138,14 +141,14 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-20">
+        <div className="relative max-w-6xl mx-auto px-6 pt-8 pb-20">
           {/* Header Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex justify-center mb-6"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm font-medium">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium">
               <Sparkles className="w-4 h-4" />
               <span>AI-Powered Floor Visualization</span>
             </div>
@@ -160,7 +163,7 @@ export default function Home() {
           >
             See Your New Floor
             <br />
-            <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-violet-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-400 via-amber-400 to-blue-500 bg-clip-text text-transparent">
               Before You Buy
             </span>
           </motion.h1>
@@ -199,21 +202,21 @@ export default function Home() {
                       relative overflow-hidden rounded-2xl border-2 border-dashed transition-all cursor-pointer
                       ${
                         isDragActive
-                          ? "border-violet-500 bg-violet-500/10"
-                          : "border-zinc-700 bg-zinc-900/50 hover:border-violet-500/50 hover:bg-zinc-900"
+                          ? "border-orange-500 bg-orange-500/10"
+                          : "border-zinc-700 bg-zinc-900/50 hover:border-orange-500/50 hover:bg-zinc-900"
                       }
                     `}
                   >
                     <input {...getInputProps()} />
                     <div className="p-10 md:p-14 text-center">
                       <motion.div
-                        className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center"
+                        className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500/20 to-blue-500/20 flex items-center justify-center"
                         animate={{
                           scale: isDragActive ? 1.1 : 1,
                           rotate: isDragActive ? 5 : 0,
                         }}
                       >
-                        <Upload className="w-10 h-10 text-violet-400" />
+                        <Upload className="w-10 h-10 text-orange-400" />
                       </motion.div>
                       <h3 className="text-xl md:text-2xl font-semibold text-white mb-2">
                         {isDragActive
@@ -230,7 +233,7 @@ export default function Home() {
                     </div>
 
                     {/* Decorative gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-fuchsia-500/5 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-blue-500/5 pointer-events-none" />
                   </div>
 
                   {/* Divider */}
@@ -245,7 +248,7 @@ export default function Home() {
                     onClick={startCamera}
                     size="lg"
                     variant="outline"
-                    className="w-full h-14 border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white hover:border-violet-500/50 rounded-xl"
+                    className="w-full h-14 border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white hover:border-orange-500/50 rounded-xl"
                   >
                     <Camera className="w-5 h-5 mr-3" />
                     Take a Photo with Camera
@@ -269,7 +272,7 @@ export default function Home() {
                     <canvas ref={canvasRef} className="hidden" />
 
                     {/* Camera overlay */}
-                    <div className="absolute inset-0 border-4 border-violet-500/30 rounded-2xl pointer-events-none" />
+                    <div className="absolute inset-0 border-4 border-orange-500/30 rounded-2xl pointer-events-none" />
                     <div className="absolute inset-4 border border-white/20 rounded-xl pointer-events-none" />
                   </div>
 
@@ -286,7 +289,7 @@ export default function Home() {
                     <Button
                       onClick={capturePhoto}
                       size="lg"
-                      className="flex-1 h-12 bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-400 hover:to-fuchsia-400 text-white"
+                      className="flex-1 h-12 bg-gradient-to-r from-orange-500 to-blue-500 hover:from-orange-400 hover:to-blue-400 text-white"
                     >
                       <Camera className="w-5 h-5 mr-2" />
                       Capture
@@ -306,11 +309,63 @@ export default function Home() {
           >
             <div className="p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/50">
               <div className="flex items-center gap-2 text-sm text-zinc-400">
-                <Zap className="w-4 h-4 text-violet-400" />
+                <Zap className="w-4 h-4 text-orange-400" />
                 <span>
                   <strong className="text-zinc-300">Pro tip:</strong> Take a
                   photo that shows the entire floor area for best results
                 </span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Mobile Showroom Van Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45 }}
+            className="max-w-3xl mx-auto mt-10"
+          >
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-orange-500/10 to-blue-500/10 border border-orange-500/20">
+              <div className="md:flex items-center">
+                {/* Van Image */}
+                <div className="md:w-2/5 relative h-48 md:h-auto">
+                  <Image
+                    src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=400&h=300&fit=crop"
+                    alt="Floor Vision Mobile Showroom Van"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/50 to-transparent" />
+                </div>
+                
+                {/* Content */}
+                <div className="md:w-3/5 p-6 md:p-8">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Truck className="w-5 h-5 text-orange-400" />
+                    <span className="text-xs font-medium text-orange-400 uppercase tracking-wider">Free Service</span>
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                    Mobile Showroom Comes to You!
+                  </h3>
+                  <p className="text-zinc-400 text-sm mb-4">
+                    Our fully-equipped van brings 100+ flooring samples to your door. 
+                    Touch, compare, and choose in the comfort of your home.
+                  </p>
+                  <div className="flex flex-wrap gap-4 text-sm">
+                    <div className="flex items-center gap-1.5 text-zinc-300">
+                      <Star className="w-4 h-4 text-orange-400" />
+                      <span>Expert advice</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-zinc-300">
+                      <Shield className="w-4 h-4 text-orange-400" />
+                      <span>No obligation</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-zinc-300">
+                      <Clock className="w-4 h-4 text-orange-400" />
+                      <span>Precise measurements</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -320,7 +375,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto mt-16"
+            className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto mt-12"
           >
             {[
               {
@@ -344,12 +399,12 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 + index * 0.1 }}
-                className="group relative p-5 rounded-xl bg-zinc-900/30 border border-zinc-800 hover:border-violet-500/30 transition-all duration-300"
+                className="group relative p-5 rounded-xl bg-zinc-900/30 border border-zinc-800 hover:border-orange-500/30 transition-all duration-300"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center mb-3">
-                    <feature.icon className="w-5 h-5 text-violet-400" />
+                  <div className="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center mb-3">
+                    <feature.icon className="w-5 h-5 text-orange-400" />
                   </div>
                   <h3 className="text-sm font-semibold text-white mb-1">
                     {feature.title}

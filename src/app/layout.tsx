@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Header } from "@/components/Header";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -14,9 +15,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "FloorCraft - Premium Floor Renovation Quotes",
-  description: "Get instant, accurate estimates for your floor renovation. Choose from premium hardwood, tile, laminate, carpet, and vinyl flooring options.",
-  keywords: ["floor renovation", "flooring quotes", "hardwood flooring", "tile installation", "carpet installation", "laminate flooring", "vinyl flooring"],
+  title: "Floor Vision - See Your New Floor Before You Buy",
+  description: "AI-powered floor visualization. Upload a photo of your room and see exactly how it looks with your chosen flooring. Get instant quotes from Solidstep Group.",
+  keywords: ["floor renovation", "flooring quotes", "AI floor visualization", "hardwood flooring", "tile installation", "carpet installation", "laminate flooring", "vinyl flooring", "Floor Vision", "Solidstep Group"],
 };
 
 export default function RootLayout({
@@ -29,7 +30,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0a0a0a]`}
       >
-        {children}
+        <Header />
+        <div className="pt-16">
+          {children}
+        </div>
       </body>
     </html>
   );
