@@ -6,10 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Camera,
   Upload,
-  X,
   Sparkles,
   Shield,
-  Clock,
   Truck,
   Star,
   ChevronDown,
@@ -49,21 +47,11 @@ const FAQ_ITEMS = [
   },
 ];
 
-// Example room types
-const ROOM_EXAMPLES = [
-  { name: "Living Room", image: "/examples/living-room.jpg" },
-  { name: "Bedroom", image: "/examples/bedroom.jpg" },
-  { name: "Kitchen", image: "/examples/kitchen.jpg" },
-];
-
 export default function Home() {
   const { aiStep, isAIFlow, setIsAIFlow, setAIStep, setUploadedPhoto } =
     useFloorStore();
-  const [isCameraActive, setIsCameraActive] = useState(false);
   const [isDragActive, setIsDragActive] = useState(false);
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,46 +93,6 @@ export default function Home() {
 
   const handleClick = () => {
     fileInputRef.current?.click();
-  };
-
-  const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" },
-      });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        setIsCameraActive(true);
-      }
-    } catch (err) {
-      console.error("Camera error:", err);
-      alert("Could not access camera. Please upload a photo instead.");
-    }
-  };
-
-  const capturePhoto = () => {
-    if (videoRef.current && canvasRef.current) {
-      const video = videoRef.current;
-      const canvas = canvasRef.current;
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const ctx = canvas.getContext("2d");
-      ctx?.drawImage(video, 0, 0);
-      const dataUrl = canvas.toDataURL("image/jpeg");
-      setUploadedPhoto(dataUrl);
-      stopCamera();
-      setIsAIFlow(true);
-      setAIStep("ai-material");
-    }
-  };
-
-  const stopCamera = () => {
-    if (videoRef.current?.srcObject) {
-      const stream = videoRef.current.srcObject as MediaStream;
-      stream.getTracks().forEach((track) => track.stop());
-      videoRef.current.srcObject = null;
-    }
-    setIsCameraActive(false);
   };
 
   // Render AI flow steps
@@ -218,130 +166,85 @@ export default function Home() {
             transition={{ delay: 0.2 }}
             className="max-w-xl mx-auto"
           >
-            <AnimatePresence mode="wait">
-              {!isCameraActive ? (
-                <motion.div
-                  key="upload"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="space-y-4"
-                >
-                  {/* Large Upload Area */}
-                  <div
-                    onClick={handleClick}
-                    onDrop={handleDrop}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    className={`
-                      relative overflow-hidden rounded-2xl border-2 border-dashed transition-all cursor-pointer
-                      ${
-                        isDragActive
-                          ? "border-orange-500 bg-orange-500/10 scale-[1.02]"
-                          : "border-zinc-600 bg-zinc-900/50 hover:border-orange-500/50 hover:bg-zinc-900"
-                      }
-                    `}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="space-y-4"
+            >
+              {/* Large Upload Area */}
+              <div
+                onClick={handleClick}
+                onDrop={handleDrop}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                className={`
+                  relative overflow-hidden rounded-2xl border-2 border-dashed transition-all cursor-pointer
+                  ${
+                    isDragActive
+                      ? "border-orange-500 bg-orange-500/10 scale-[1.02]"
+                      : "border-zinc-600 bg-zinc-900/50 hover:border-orange-500/50 hover:bg-zinc-900"
+                  }
+                `}
+              >
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+                <div className="p-12 md:p-16 text-center">
+                  <motion.div
+                    className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/25"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept="image/*"
-                      onChange={handleFileChange}
-                      className="hidden"
-                    />
-                    <div className="p-12 md:p-16 text-center">
-                      <motion.div
-                        className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/25"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <Upload className="w-12 h-12 text-white" />
-                      </motion.div>
-                      <h3 className="text-2xl font-bold text-white mb-2">
-                        {isDragActive
-                          ? "Drop your photo here"
-                          : "Upload Your Room Photo"}
-                      </h3>
-                      <p className="text-zinc-400 mb-6">
-                        Drag & drop or click to browse
-                      </p>
+                    <Upload className="w-12 h-12 text-white" />
+                  </motion.div>
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    {isDragActive
+                      ? "Drop your photo here"
+                      : "Upload Your Room Photo"}
+                  </h3>
+                  <p className="text-zinc-400 mb-6">
+                    Drag & drop or click to browse
+                  </p>
 
-                      {/* Primary CTA Button */}
-                      <Button
-                        size="lg"
-                        className="h-14 px-8 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-semibold text-lg rounded-xl shadow-lg shadow-orange-500/25"
-                      >
-                        <Camera className="w-5 h-5 mr-2" />
-                        Choose Photo
-                      </Button>
-                    </div>
-                  </div>
+                  {/* Primary CTA Button */}
+                  <Button
+                    size="lg"
+                    className="h-14 px-8 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-semibold text-lg rounded-xl shadow-lg shadow-orange-500/25"
+                  >
+                    <Camera className="w-5 h-5 mr-2" />
+                    Choose Photo
+                  </Button>
+                </div>
+              </div>
 
-                  {/* Privacy Reassurance */}
-                  <div className="flex items-center justify-center gap-2 text-sm text-zinc-500">
-                    <Lock className="w-4 h-4" />
-                    <span>
-                      Your photo is private. Used only to generate previews.
-                    </span>
-                  </div>
+              {/* Privacy Reassurance */}
+              <div className="flex items-center justify-center gap-2 text-sm text-zinc-500">
+                <Lock className="w-4 h-4" />
+                <span>
+                  Your photo is private. Used only to generate previews.
+                </span>
+              </div>
 
-                  {/* Secondary CTA */}
-                  <div className="pt-4">
-                    <Button
-                      onClick={() => {
-                        setIsAIFlow(true);
-                        setAIStep("ai-appointment");
-                      }}
-                      variant="outline"
-                      size="lg"
-                      className="w-full h-14 border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white hover:border-orange-500/50 rounded-xl"
-                    >
-                      <Truck className="w-5 h-5 mr-3" />
-                      Book Free Mobile Showroom Visit
-                    </Button>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="camera"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="space-y-4"
+              {/* Secondary CTA */}
+              <div className="pt-4">
+                <Button
+                  onClick={() => {
+                    setIsAIFlow(true);
+                    setAIStep("ai-appointment");
+                  }}
+                  variant="outline"
+                  size="lg"
+                  className="w-full h-14 border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white hover:border-orange-500/50 rounded-xl"
                 >
-                  <div className="relative rounded-2xl overflow-hidden bg-black">
-                    <video
-                      ref={videoRef}
-                      autoPlay
-                      playsInline
-                      className="w-full aspect-[4/3] object-cover"
-                    />
-                    <canvas ref={canvasRef} className="hidden" />
-                    <div className="absolute inset-0 border-4 border-orange-500/30 rounded-2xl pointer-events-none" />
-                  </div>
-
-                  <div className="flex gap-4">
-                    <Button
-                      onClick={stopCamera}
-                      variant="outline"
-                      size="lg"
-                      className="flex-1 h-12 border-zinc-700 text-zinc-300"
-                    >
-                      <X className="w-5 h-5 mr-2" />
-                      Cancel
-                    </Button>
-                    <Button
-                      onClick={capturePhoto}
-                      size="lg"
-                      className="flex-1 h-12 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white"
-                    >
-                      <Camera className="w-5 h-5 mr-2" />
-                      Capture
-                    </Button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  <Truck className="w-5 h-5 mr-3" />
+                  Book Free Mobile Showroom Visit
+                </Button>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Trust Badge */}
